@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Sandbox
@@ -9,6 +8,7 @@ namespace Sandbox
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -18,9 +18,11 @@ namespace Sandbox
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
+            app.UseMvc(routes =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                routes.MapRoute(
+                    name: "log",
+                    template: "{controller=LogRequest}/{action=Index}/");
             });
         }
     }
