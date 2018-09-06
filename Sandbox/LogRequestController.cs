@@ -6,7 +6,9 @@ namespace Sandbox
 {
     public class LogRequestController : Controller
     {
-        public IActionResult Index()
+        [HttpGet]
+        [Route("log")]
+        public IActionResult Log()
         {
             using (StreamWriter log = new StreamWriter("log.txt", true))
             {

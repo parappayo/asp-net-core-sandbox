@@ -18,12 +18,7 @@ namespace Sandbox
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "log",
-                    template: "{controller=LogRequest}/{action=Index}/");
-            });
+            app.UseMvc();
         }
     }
 }

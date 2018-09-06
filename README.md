@@ -33,6 +33,7 @@ A minimal ASP.NET Core web API demo for experimenting. Various learning resource
 * [Build Web APIs with ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/web-api/)
 * [.NET Core vs .NET Framework](https://docs.microsoft.com/en-us/dotnet/standard/choosing-core-framework-server)
 * [Migrating from ASP.NET to ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/migration/webapi)
+* [Attribute Routing in ASP.NET](https://docs.microsoft.com/en-us/aspnet/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2)
 
 ## DotNetPerls
 
