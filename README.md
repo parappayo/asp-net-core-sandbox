@@ -17,6 +17,7 @@ A minimal ASP.NET Core web API demo for experimenting. Various learning resource
 * Lack of an explicit response object makes it less clear how to control the content-type of the response. Returning a html or json content as a string can result in that response not being formed as expected, depending on what the request accepts header was set to.
 * IIS may not be a good fit for your project.
 * When debugging through Visual Studio with Chrome as default browser, it may complain about not shutting down correctly on subsequent runs.
+* Odbc drivers may need to be deployed in a separate package (installer) from the web application.
 
 # Concepts
 
@@ -39,6 +40,11 @@ A minimal ASP.NET Core web API demo for experimenting. Various learning resource
 * Open Web Interface for .NET (OWIN) - specification for .NET web apps
 * Razor Pages - server rendered web pages for .NET Core
 * Xamarin - another name for Mono, but also the name of the Microsoft subsidiary that maintains Mono
+
+# Tips
+
+* In `Startup.cs`, call `app.UseDefaultFiles()` before calling `app.UseStaticFiles()`, or better yet, only call `app.UseFileServer()`.
+* Use `[Route("")]` to set a default controller. It may conflict with `app.UseDefaultFiles()`.
 
 # Links
 
