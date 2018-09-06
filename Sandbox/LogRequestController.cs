@@ -8,6 +8,8 @@ namespace Sandbox
 {
     public class LogRequestController : Controller
     {
+        private string LogFilePath = "log.txt";
+
         private class RequestLogEntry
         {
             public string Timestamp { get; private set; }
@@ -31,7 +33,9 @@ namespace Sandbox
         [Route("log")]
         public string GetLog()
         {
-            using (StreamReader log = new StreamReader("log.txt"))
+            if (!System.IO.File.Exists(this.LogFilePath)) { return String.Empty; }
+
+            using (StreamReader log = new StreamReader(this.LogFilePath))
             {
                 return log.ReadToEnd();
             }
@@ -43,7 +47,7 @@ namespace Sandbox
         {
             string logEntry = GenerateLogEntryAsJson(Request.Headers);
 
-            using (StreamWriter log = new StreamWriter("log.txt", true))
+            using (StreamWriter log = new StreamWriter(this.LogFilePath, true))
             {
                 log.WriteLine(logEntry);
             }
