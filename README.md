@@ -14,7 +14,9 @@ A minimal ASP.NET Core web API demo for experimenting. Various learning resource
 * Visual Studio is a slow and bloated tool with a lot of bugs. Team members can have local configuration drift that causes issues. Alternatives exist but it is considered the standard IDE for ASP.NET development.
 * Creating a project in Visual Studio via New Project -> .NET Core -> ASP.NET Core Web Application versus importing the Microsoft.AspNetCore.All Nuget package into an empty project may give very different results even though both are suggested as valid ways to start a project.
 * It is not clear how to debug routing, since so much is handled auto-magically with reflection. Changing the body type of a POST request can route to an unexpected handler. It is best to avoid getting fancy with lots of different endpoint types, but teams in the wild may lack the ability to show such constraint.
+* Lack of an explicit response object makes it less clear how to control the content-type of the response. Returning a html or json content as a string can result in that response not being formed as expected, depending on what the request accepts header was set to.
 * IIS may not be a good fit for your project.
+* When debugging through Visual Studio with Chrome as default browser, it may complain about not shutting down correctly on subsequent runs.
 
 # Concepts
 
@@ -57,3 +59,4 @@ A minimal ASP.NET Core web API demo for experimenting. Various learning resource
 ## Stack Overflow
 
 * [.NET Core vs Mono](https://stackoverflow.com/questions/37738106/net-core-vs-mono)
+* [Setting index.html as default page](https://stackoverflow.com/questions/43090718/setting-index-html-as-default-page-in-asp-net-core)

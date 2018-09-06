@@ -19,6 +19,7 @@ namespace Sandbox
             }
 
             app.UseMvc();
+            app.UseFileServer();
         }
     }
 }
