@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace Sandbox
+namespace Sandbox.Controllers
 {
     public class LogRequestController : Controller
     {
