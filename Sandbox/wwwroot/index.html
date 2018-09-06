@@ -3,10 +3,40 @@
 
 <head>
 <title>ASP.NET Core Sandbox</title>
+<script src='mehQuery.js'></script>
 </head>
 
 <body>
-<h1>Work in progress</h1>
-</body>
 
+<h1>Web API Testing</h1>
+
+<p><button id='appendLogButton'>Append Log Entry</button></p>
+<p><button id='fetchLogButton'>Fetch Log</button></p>
+<p><textarea id='logText'></textarea></p>
+
+<script type='text/javascript'>
+
+$('appendLogButton').onclick = function() {
+	var url = $.baseUrl() + 'log/';
+	$.put(url, function (body, status) {
+		if (status != 200) {
+			console.log('append log returned status: ' + status);
+		}
+	});
+}
+
+$('fetchLogButton').onclick = function() {
+	var url = $.baseUrl() + 'log/';
+	$.get(url, function (body, status) {
+		if (status != 200) {
+			console.log('append log returned status: ' + status);
+		} else {
+			$('logText').value = body;
+		}
+	});
+}
+
+</script>
+
+</body>
 </html>
