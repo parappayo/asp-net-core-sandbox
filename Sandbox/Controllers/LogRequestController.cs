@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 
 namespace Sandbox.Controllers
 {
+    [Route("log")]
     public class LogRequestController : Controller
     {
         private string LogFilePath = "log.txt";
@@ -24,14 +25,16 @@ namespace Sandbox.Controllers
             }
         }
 
-        private string GenerateLogEntryAsJson(IHeaderDictionary headers)
+        private void WriteToLog(RequestLogEntry entry)
         {
-            return JsonConvert.SerializeObject(new RequestLogEntry(headers));
+            using (StreamWriter log = new StreamWriter(this.LogFilePath, true))
+            {
+                log.WriteLine(JsonConvert.SerializeObject(entry));
+            }
         }
 
         [HttpGet]
-        [Route("log")]
-        public string GetLog()
+        public string Get()
         {
             if (!System.IO.File.Exists(this.LogFilePath)) { return String.Empty; }
 
@@ -42,16 +45,16 @@ namespace Sandbox.Controllers
         }
 
         [HttpPut]
-        [Route("log")]
-        public IActionResult PutLog()
+        public IActionResult Put()
         {
-            string logEntry = GenerateLogEntryAsJson(Request.Headers);
+            WriteToLog(new RequestLogEntry(Request.Headers));
+            return Ok();
+        }
 
-            using (StreamWriter log = new StreamWriter(this.LogFilePath, true))
-            {
-                log.WriteLine(logEntry);
-            }
-
+        [HttpPost]
+        public IActionResult Post()
+        {
+            WriteToLog(new RequestLogEntry(Request.Headers));
             return Ok();
         }
     }
