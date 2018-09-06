@@ -16,12 +16,14 @@ namespace Sandbox.Controllers
             public string Timestamp { get; private set; }
             public string UserAgent { get; private set; }
             public string Host { get; private set; }
+            public String Content { get; private set; }
 
-            public RequestLogEntry(IHeaderDictionary headers)
+            public RequestLogEntry(IHeaderDictionary headers, string content)
             {
                 Timestamp = $"{DateTime.Now.ToUniversalTime()}";
                 UserAgent = headers["User-Agent"];
                 Host = headers["Host"];
+                Content = content;
             }
         }
 
@@ -45,16 +47,20 @@ namespace Sandbox.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put()
+        public IActionResult Put(string content)
         {
-            WriteToLog(new RequestLogEntry(Request.Headers));
+            WriteToLog(new RequestLogEntry(Request.Headers, content));
             return Ok();
         }
 
         [HttpPost]
         public IActionResult Post()
         {
-            WriteToLog(new RequestLogEntry(Request.Headers));
+            using (StreamReader body = new StreamReader(Request.Body))
+            {
+                WriteToLog(new RequestLogEntry(Request.Headers, body.ReadToEnd()));
+            }
+
             return Ok();
         }
     }
