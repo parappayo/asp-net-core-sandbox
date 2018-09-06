@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace Sandbox.Controllers
 {
     [Route("log")]
-    public class LogRequestController : Controller
+    public class LogController : Controller
     {
         private string LogFilePath = "log.txt";
 
