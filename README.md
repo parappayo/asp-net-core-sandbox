@@ -3,6 +3,19 @@
 
 A minimal ASP.NET Core web API demo for experimenting. Various learning resources are collected here.
 
+# Advantages
+
+* .NET has a robust ecosystem with some good programming language options including F#.
+* Focus on portability looks promising for allowing a variety of hosting options.
+
+# Pitfalls
+
+* The existence of so many ASP.NET versions creates a hall-of-mirrors effect with overlapping docs, namespaces, community posts, examples, best practices, rants, etc. It is hard to know what advice applies to your project, and the history of ASP.NET is obscured by hype and confusing product names.
+* Visual Studio is a slow and bloated tool with a lot of bugs. Team members can have local configuration drift that causes issues. Alternatives exist but it is considered the standard IDE for ASP.NET development.
+* Creating a project in Visual Studio via New Project -> .NET Core -> ASP.NET Core Web Application versus importing the Microsoft.AspNetCore.All Nuget package into an empty project may give very different results even though both are suggested as valid ways to start a project.
+* It is not clear how to debug routing, since so much is handled auto-magically with reflection. Changing the body type of a POST request can route to an unexpected handler. It is best to avoid getting fancy with lots of different endpoint types, but teams in the wild may lack the ability to show such constraint.
+* IIS may not be a good fit for your project.
+
 # Concepts
 
 * Attribute Routing - uses C# attributes to denote request handlers; the alternative in ASP.NET is convention-based routing
@@ -12,7 +25,7 @@ A minimal ASP.NET Core web API demo for experimenting. Various learning resource
 
 # Techs
 
-* .NET Core - open source, portable platform based on the .NET Standard
+* .NET Core - open source, portable platform based on the .NET Standard, aims to be container-friendly
 * .NET Framework - .NET Standard platform for Windows
 * .NET Standard - the standard that defines common functionality between platforms including .NET Framework, .NET Core, and Mono
 * ASP.NET - web application framework, shipped with .NET 1.0, successor to Active Server Pages (ASP)
@@ -21,6 +34,7 @@ A minimal ASP.NET Core web API demo for experimenting. Various learning resource
 * ASP.NET Web API - web application framework, similar to ASP.NET MVC
 * Internet Information Services (IIS) - web server
 * Mono - portable implementation of the .NET Framework
+* Open Web Interface for .NET (OWIN) - specification for .NET web apps
 * Razor Pages - server rendered web pages for .NET Core
 * Xamarin - another name for Mono, but also the name of the Microsoft subsidiary that maintains Mono
 
