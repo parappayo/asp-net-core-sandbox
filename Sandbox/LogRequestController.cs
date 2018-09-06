@@ -29,7 +29,17 @@ namespace Sandbox
 
         [HttpGet]
         [Route("log")]
-        public IActionResult Log()
+        public string GetLog()
+        {
+            using (StreamReader log = new StreamReader("log.txt"))
+            {
+                return log.ReadToEnd();
+            }
+        }
+
+        [HttpPut]
+        [Route("log")]
+        public IActionResult PutLog()
         {
             string logEntry = GenerateLogEntryAsJson(Request.Headers);
 
