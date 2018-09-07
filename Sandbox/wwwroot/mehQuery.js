@@ -46,3 +46,16 @@ $.put = function(url, data, callback)
 		data: data
 	});
 }
+
+$.post = function (url, data, callback) {
+	if (typeof (data) === 'function') {
+		callback = callback || data;
+		data = null;
+	}
+
+	return $.ajax(url, {
+		method: 'POST',
+		complete: callback,
+		data: data
+	});
+}

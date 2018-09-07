@@ -3,7 +3,7 @@
 
 <head>
 <title>ASP.NET Core Sandbox</title>
-<script src='mehQuery.js'></script>
+<script src="mehQuery.js"></script>
 </head>
 
 <body>
@@ -11,21 +11,28 @@
 <h1>Web API Testing</h1>
 
 <h2>Log Endpoint</h2>
+
 <p>
-	<input id='logContentInput' placeholder='Type log content here' />
-	<button id='putLogButton'>PUT Log</button>
+	<input id="logContentInput" placeholder="Type log content here" />
+	<button id="putLogButton">PUT Log</button>
 </p>
 
 <p>
-	<button id='getLogButton'>GET Log</button><br>
-	<textarea id='logText' placeholder='Click fetch button to populate'></textarea>
+	<button id="getLogButton">GET Log</button><br>
+	<textarea id="logText" placeholder="Click fetch button to populate"></textarea>
 </p>
 
-<script type='text/javascript'>
+<h2>Upload Endpoint</h2>
+
+<form onsubmit="return false">
+	<input id="uploadFiles" type="file" size="80" multiple />
+	<input id="uploadButton" type="button" value="Upload" />
+</form>
+
+<script type="text/javascript">
 
 $('putLogButton').onclick = function() {
 	var url = $.baseUrl() + 'log/?content=' + $('logContentInput').value;
-	console.log(url);
 	$.put(url, function (body, status) {
 		if (status != 200) {
 			console.log('append log returned status: ' + status);
@@ -40,6 +47,23 @@ $('getLogButton').onclick = function() {
 			console.log('append log returned status: ' + status);
 		} else {
 			$('logText').value = body;
+		}
+	});
+}
+
+$('uploadButton').onclick = function() {
+	var url = $.baseUrl() + 'upload/';
+	var files = $('uploadFiles').files;
+	var formData = new FormData();
+
+	for (var fileIndex = 0; fileIndex < files.length; fileIndex++)
+	{
+		formData.append('uploadFiles', files[fileIndex]);
+	}
+
+	$.post(url, formData, function (body, status) {
+		if (status != 200) {
+			console.log('append log returned status: ' + status);
 		}
 	});
 }

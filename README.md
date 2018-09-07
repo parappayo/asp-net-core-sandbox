@@ -1,7 +1,9 @@
 
 # asp-net-core-sandbox
 
-A minimal ASP.NET Core web API demo for experimenting. Various learning resources are collected here.
+A minimal ASP.NET Core web API demo for experimenting. Various learning resources are collected here. Although some minimal interface functionality is provided in the form of a static HTML page, the focus here is on exercising the web API side, not the client side.
+
+Fair warning: as this is a sandbox project for learning and rapid prototyping, it is not well tested and may not follow best practices.
 
 # Advantages
 
