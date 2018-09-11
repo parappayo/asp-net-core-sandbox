@@ -9,7 +9,7 @@ namespace Sandbox.Controllers
     [Route("log")]
     public class LogController : Controller
     {
-        private string LogFilePath = "log.txt";
+        private string LogDirPath = "log/";
 
         private class RequestLogEntry
         {
@@ -20,16 +20,28 @@ namespace Sandbox.Controllers
 
             public RequestLogEntry(IHeaderDictionary headers, string content)
             {
-                Timestamp = $"{DateTime.Now.ToUniversalTime()}";
+                Timestamp = $"{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
                 UserAgent = headers["User-Agent"];
                 Host = headers["Host"];
                 Content = content;
             }
         }
 
+        private string GetLogDirPath(DateTime dateTime)
+        {
+            return Path.Combine(this.LogDirPath, dateTime.ToString("yyyy"));
+        }
+
+        private string GetLogFilePath(DateTime dateTime)
+        {
+            return Path.Combine(GetLogDirPath(dateTime), dateTime.ToString("MM-dd") + ".txt");
+        }
+
         private void WriteToLog(RequestLogEntry entry)
         {
-            using (StreamWriter log = new StreamWriter(this.LogFilePath, true))
+            Directory.CreateDirectory(GetLogDirPath(DateTime.Now));
+
+            using (StreamWriter log = new StreamWriter(GetLogFilePath(DateTime.Now), true))
             {
                 log.WriteLine(JsonConvert.SerializeObject(entry));
             }
@@ -38,9 +50,11 @@ namespace Sandbox.Controllers
         [HttpGet]
         public string Get()
         {
-            if (!System.IO.File.Exists(this.LogFilePath)) { return String.Empty; }
+            string logPath = GetLogFilePath(DateTime.Now);
 
-            using (StreamReader log = new StreamReader(this.LogFilePath))
+            if (!System.IO.File.Exists(logPath)) { return String.Empty; }
+
+            using (StreamReader log = new StreamReader(logPath))
             {
                 return log.ReadToEnd();
             }

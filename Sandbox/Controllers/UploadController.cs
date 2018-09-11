@@ -11,17 +11,11 @@ namespace Sandbox.Controllers
     {
         private string SaveFilePath = "uploads";
 
-        public UploadController()
-        {
-            if (!Directory.Exists(SaveFilePath))
-            {
-                Directory.CreateDirectory(SaveFilePath);
-            }
-        }
-
         [HttpPost]
         public IActionResult Post(List<IFormFile> uploadFiles)
         {
+            Directory.CreateDirectory(SaveFilePath);
+
             foreach (var file in uploadFiles)
             {
                 SaveFormFile(file);
